@@ -36,9 +36,11 @@ public class UsersServiceImpl implements UsersService {
 			throw new CouldNotCreateRecordException(ErrorMessages.RECORD_ALREADY_EXISTS.name());
 		}
 		
-		// Create and Entity object - Not Needed Now
+		// Create and Entity object - Not Needed Now, done
 		
 		// Generate Secure public user id
+		String userId = userProfileUtils.generateUserId(30);
+		user.setUserId(userId);
 		
 		// Generate salt
 		
