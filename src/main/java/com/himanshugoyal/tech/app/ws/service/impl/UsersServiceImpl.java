@@ -36,15 +36,22 @@ public class UsersServiceImpl implements UsersService {
 			throw new CouldNotCreateRecordException(ErrorMessages.RECORD_ALREADY_EXISTS.name());
 		}
 		
-		// Create and Entity object - Not Needed Now, done
+		// Create and Entity object - Not Needed Now, implemented now.
 		
 		// Generate Secure public user id
 		String userId = userProfileUtils.generateUserId(30);
 		user.setUserId(userId);
 		
 		// Generate salt
+		/*
+		 * https://docs.oracle.com/javase/7/docs/api/javax/crypto/spec/PBEKeySpec.html
+		 */
+		String salt = userProfileUtils.getSalt(30);
 		
 		// Generate Secure Password
+		String encryptedPassword = userProfileUtils.generateSecurePassword(user.getPassword(), salt);
+		user.setSalt(salt);
+		user.setEncryptedPassword(encryptedPassword);
 		
 		// Record data into a database
 		
