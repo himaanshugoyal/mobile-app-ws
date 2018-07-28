@@ -26,10 +26,10 @@ public class UserProfileUtils {
 	
 	private final Random RANDOM = new SecureRandom();
 	private final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqwrstuvwxyz";
+	
 	/*The no. key agrevevation FUNCTION needs to derive the final secret key.
 	 It is Iterated to acquire a significant computation effort.*/
-	private final int ITERATIONS = 10000; 
-											
+	private final int ITERATIONS = 10000; 										
 	private final int KEY_LENGTH = 256;
 	
 	/*A UUID (Universal Unique Idnetifier) is a 128-bit number used to uniquely identify some object or entity
