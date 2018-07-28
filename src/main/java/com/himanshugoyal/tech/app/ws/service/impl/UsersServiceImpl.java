@@ -3,10 +3,12 @@
  */
 package com.himanshugoyal.tech.app.ws.service.impl;
 
+import com.himanshugoyal.tech.app.ws.exceptions.CouldNotCreateRecordException;
 import com.himanshugoyal.tech.app.ws.io.dao.DAO;
 import com.himanshugoyal.tech.app.ws.io.dao.impl.MySQLDAO;
 import com.himanshugoyal.tech.app.ws.service.UsersService;
 import com.himanshugoyal.tech.app.ws.shared.dto.UserDTO;
+import com.himanshugoyal.tech.app.ws.ui.model.response.ErrorMessages;
 import com.himanshugoyal.tech.app.ws.utils.UserProfileUtils;
 
 /**
@@ -30,6 +32,9 @@ public class UsersServiceImpl implements UsersService {
 		
 		// Check if user already exists
 		UserDTO existingUser = this.getUserByUserName(user.getEmail());
+		if(existingUser != null){
+			throw new CouldNotCreateRecordException(ErrorMessages.RECORD_ALREADY_EXISTS.name());
+		}
 		// Create and Entity object
 		
 		// Generate Secure public user id
@@ -57,7 +62,7 @@ public class UsersServiceImpl implements UsersService {
 			this.database.openConnection();
 			userDto = this.database.getUserByUserName(userName);
 		}finally{
-		this.database.closeConnection();
+			this.database.closeConnection();
 		}
 		
 		return userDto;
