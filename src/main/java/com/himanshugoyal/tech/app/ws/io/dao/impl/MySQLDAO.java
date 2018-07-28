@@ -10,12 +10,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.BeanUtils;
 
 import com.himanshugoyal.tech.app.ws.io.dao.DAO;
 import com.himanshugoyal.tech.app.ws.io.entity.UserEntity;
 import com.himanshugoyal.tech.app.ws.shared.dto.UserDTO;
+import com.himanshugoyal.tech.app.ws.utils.HibernateUtils;
 
 /**
  * @author himanshugoyal
@@ -26,8 +28,8 @@ public class MySQLDAO implements DAO {
 	Session session;
 	
 	public void openConnection() {
-		// TODO Auto-generated method stub
-		
+		SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
+		sessionFactory.openSession();
 	}
 
 	public UserDTO getUserByUserName(String userName) {
@@ -35,10 +37,10 @@ public class MySQLDAO implements DAO {
 		
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		
-	    //CriteriaQuery<T>teria against a particualr persistent class
+	    //Create Criteria against a particular persistent class
 		CriteriaQuery<UserEntity> criteria = cb.createQuery(UserEntity.class);
 		
-		//Query root always reference entitiy
+		//Query root always reference entity
 		Root<UserEntity> profileRoot = criteria.from(UserEntity.class);
 		criteria.select(profileRoot);
 		criteria.where(cb.equal(profileRoot.get("email"), userName));
@@ -56,7 +58,10 @@ public class MySQLDAO implements DAO {
 	}
 
 	public void closeConnection() {
-		// TODO Auto-generated method stub
+		if(session != null)
+		{
+			session.clear();
+		}
 		
 	}
 

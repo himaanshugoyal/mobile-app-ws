@@ -35,7 +35,8 @@ public class UsersServiceImpl implements UsersService {
 		if(existingUser != null){
 			throw new CouldNotCreateRecordException(ErrorMessages.RECORD_ALREADY_EXISTS.name());
 		}
-		// Create and Entity object
+		
+		// Create and Entity object - Not Needed Now
 		
 		// Generate Secure public user id
 		
