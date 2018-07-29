@@ -38,6 +38,14 @@ public class UsersEntryPoint {
 		return returnValue;
 	}
 	
-	
+	@GET
+	@Path("/{id}")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public UserProfileRest getUserProfile(@PathParam("id") String id)
+	{
+		UserProfileRest returnValue = null;
+		return returnValue; 
+		
+	}
 	
 }
