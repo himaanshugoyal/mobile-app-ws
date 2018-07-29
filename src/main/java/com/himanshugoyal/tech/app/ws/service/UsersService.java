@@ -4,5 +4,7 @@ import com.himanshugoyal.tech.app.ws.shared.dto.UserDTO;
 
 public interface UsersService {
 
-	public UserDTO createUser(UserDTO user);
+ UserDTO createUser(UserDTO user);
+
+ UserDTO getUser(String id);
 }

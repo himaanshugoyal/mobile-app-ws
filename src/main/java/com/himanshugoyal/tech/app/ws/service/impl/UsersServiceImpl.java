@@ -4,6 +4,7 @@
 package com.himanshugoyal.tech.app.ws.service.impl;
 
 import com.himanshugoyal.tech.app.ws.exceptions.CouldNotCreateRecordException;
+import com.himanshugoyal.tech.app.ws.exceptions.NoRecordFoundException;
 import com.himanshugoyal.tech.app.ws.io.dao.DAO;
 import com.himanshugoyal.tech.app.ws.io.dao.impl.MySQLDAO;
 import com.himanshugoyal.tech.app.ws.service.UsersService;
@@ -60,7 +61,23 @@ public class UsersServiceImpl implements UsersService {
 
 		return returnValue;
 	}
-
+	
+	public UserDTO getUser(String id){
+		UserDTO returnValue = null;
+		try{
+			
+			this.database.openConnection();
+			returnValue = this.database.getUser(id);
+			
+		}catch( Exception ex){
+			ex.printStackTrace();
+			throw new NoRecordFoundException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+		}finally {
+			this.database.closeConnection();
+		}
+		return returnValue;
+	}
+	
 	private UserDTO getUserByUserName(String userName){
 		UserDTO userDto = null;
 

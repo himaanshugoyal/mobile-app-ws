@@ -44,6 +44,12 @@ public class UsersEntryPoint {
 	public UserProfileRest getUserProfile(@PathParam("id") String id)
 	{
 		UserProfileRest returnValue = null;
+		UsersService userService = new UsersServiceImpl();
+		UserDTO userProfile = userService.getUser(id);
+	
+		//Prepare response
+		returnValue = new UserProfileRest();
+		BeanUtils.copyProperties(userProfile, returnValue);
 		return returnValue; 
 		
 	}

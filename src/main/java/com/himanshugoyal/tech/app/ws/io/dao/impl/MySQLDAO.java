@@ -57,6 +57,27 @@ public class MySQLDAO implements DAO {
 		return userDto;
 	}
 	
+	public UserDTO getUser(String id) {
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		
+		//Create Criteria against a particular persitstnet class
+		CriteriaQuery<UserEntity> criteria = cb.createQuery(UserEntity.class);
+		
+		//Query roots always referenece entitiy
+		Root<UserEntity> profileRoot = criteria.from(UserEntity.class);
+		criteria.select(profileRoot);
+		criteria.where(cb.equal(profileRoot.get("userId"), id));
+		
+		//Fetch Single Result
+		UserEntity userEntity = session.createQuery(criteria).getSingleResult();
+		
+		UserDTO userDto = new UserDTO();
+		BeanUtils.copyProperties(userEntity, userDto);
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public UserDTO saveUser(UserDTO user){
 		UserDTO returnValue = null;	
 		
@@ -80,5 +101,7 @@ public class MySQLDAO implements DAO {
 		}
 		
 	}
+
+	
 
 }
