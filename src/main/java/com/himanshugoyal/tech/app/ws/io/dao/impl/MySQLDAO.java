@@ -74,8 +74,7 @@ public class MySQLDAO implements DAO {
 		UserDTO userDto = new UserDTO();
 		BeanUtils.copyProperties(userEntity, userDto);
 		
-		// TODO Auto-generated method stub
-		return null;
+		return userDto;
 	}
 	
 	public UserDTO saveUser(UserDTO user){
