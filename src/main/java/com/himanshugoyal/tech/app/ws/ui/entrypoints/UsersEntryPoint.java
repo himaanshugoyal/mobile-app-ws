@@ -1,8 +1,10 @@
 package com.himanshugoyal.tech.app.ws.ui.entrypoints;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -25,7 +27,7 @@ public class UsersEntryPoint {
 		
 		//Prepare UserDTO
 		UserDTO userDto = new UserDTO();
-		BeanUtils.copyProperties(requestObject, this);
+		BeanUtils.copyProperties(requestObject, userDto);
 		
 		//Create New User
 		UsersService userService = new UsersServiceImpl();
@@ -35,4 +37,7 @@ public class UsersEntryPoint {
 		BeanUtils.copyProperties(createdUserProfile, returnValue);
 		return returnValue;
 	}
+	
+	
+	
 }

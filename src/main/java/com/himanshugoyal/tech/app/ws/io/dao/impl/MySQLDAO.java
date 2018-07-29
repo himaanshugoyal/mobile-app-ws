@@ -29,7 +29,7 @@ public class MySQLDAO implements DAO {
 	
 	public void openConnection() {
 		SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
-		sessionFactory.openSession();
+		session = sessionFactory.openSession();
 	}
 
 	public UserDTO getUserByUserName(String userName) {
